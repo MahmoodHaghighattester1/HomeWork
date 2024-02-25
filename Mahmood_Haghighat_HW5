@@ -1,0 +1,49 @@
+class LectureError(Exception):
+    def __init__(self, message):
+        self.message = message
+        super().__init__(self.message)
+
+class Person:
+    def __init__(self, firstname, lastname):
+        self.firstname = firstname
+        self.lastname = lastname
+    
+class Student(Person):
+    def __init__(self, firstname, lastname, lecture, grade):
+        self.firstname = firstname
+        self.lastname = lastname
+        self.lecture = lecture
+        self.grade = grade
+
+    def avg(self):
+        #print(self.grade)
+
+        sum = 0
+        count = 0
+        for key, value in self.grade.items():
+            if value != '-1':
+                sum += float(value)
+                count += 1
+            if (sum / count) < 14:
+                return False
+        return True
+
+lecture = {1: 'math', 2: 'physic', 3: 'oloom'}
+grade = {1: 20, 2: 17, 3: 2}
+ali_stu = Student('ali', 'alavi', lecture, grade)
+print(ali_stu.lecture)
+print(ali_stu.avg())
+try:
+    if ali_stu.avg() == True:
+        print("You can choose your lectures")
+    else:
+        raise LectureError("You can't choose your lectures")
+
+except LectureError as LE:
+    print(LE)
+
+
+#if ali_stu.avg() == True:
+    #print("You can choose your lectures")
+#else:
+    #print("You can't choose your lectures")
